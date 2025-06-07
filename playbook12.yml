@@ -1,0 +1,10 @@
+---
+- name: Implementing host scope variables
+  hosts: webserver
+  tasks:
+    - name: Install firwalld
+      apt:
+        name: "{{a}}"
+        state: "{{b}}"
+        update_cache: "{{c}}"
+...

@@ -1,0 +1,14 @@
+---
+- name: Install multiple s/w apps
+  hosts: all
+  tasks:
+    - name: Install s/w's
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+      with_items:
+        - git
+        - maven
+        - openjdk-17-jdk
+...
