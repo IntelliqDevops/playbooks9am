@@ -1,0 +1,43 @@
+- name: Install jenkins and required s/w's
+  hosts: jenkinsserver
+  tasks:
+    - name: Install required s/w's
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      with_items:
+        - {a: openjdk-17-jdk,b: present,c: yes}
+        - {a: git,b: present,c: no}
+        - {a: maven,b: present,c: no}
+    - name: Download jenkins.war file
+      get_url:
+        url: https://get.jenkins.io/war-stable/2.504.2/jenkins.war
+        dest: /home/ubuntu 
+- name: Configure tomcat on qan and prodservers
+  hosts: servers
+  tasks:
+    - name: Install tomcat10 and tomcat10-admin
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      with_items:
+        - {a: tomcat10,b: present,c: yes}
+        - {a: tomcat10-admin,b: present,c: no}
+    - name: Copy customsied tomcat-users.xml file
+      copy:
+        src: tomcat-users.xml
+        dest: /etc/tomcat10
+      notify: Restart tomcat
+  handlers:
+    - name: Restart tomcat
+      service:
+        name: tomcat10
+        state: restarted
+...
+
+
+
+
+
