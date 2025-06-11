@@ -1,0 +1,18 @@
+---
+- name: Install tree on Ubuntu servers
+  hosts: ubuntu
+  tasks:
+    - name: Install tree
+      apt:
+        name: tree
+        state: present
+        update_cache: yes
+- name: Install tree on Redhat servers
+  hosts: redhat
+  tasks:
+    - name: Install tree
+      yum:
+        name: tree
+        state: present
+        update_cache: yes
+
