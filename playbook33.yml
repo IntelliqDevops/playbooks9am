@@ -1,0 +1,44 @@
+---
+- name: Configure apache2/httpd based on OS flavour
+  hosts: all
+  tasks:
+    - name: Install apache2 on Ubuntu servers
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+    - name: Install httpd on Redhat servers
+      yum:
+        name: httpd
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "RedHat"
+    - name: Edit the index.html file
+      copy:
+        content: "IntelliQIT"
+        dest: /var/www/html/index.html
+    - name: Restart apache2 on the Ubuntu server
+      service:
+        name: apache2
+        state: restarted
+      when: ansible_distribution == "Ubuntu"
+    - name: Restart httpd on the Redhat server
+      service:
+        name: httpd
+        state: restarted
+      when: ansible_distribution == "RedHat"
+    - name: Check apache response on all the servers
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items:
+        - http://172.31.81.19
+        - http://172.31.24.154
+        - http://172.31.31.97
+...
+ 
+
+
+
+
