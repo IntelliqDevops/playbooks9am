@@ -1,0 +1,5 @@
+---
+- name: Pause for 60 seconds
+  pause:
+    seconds: "{{l}}"
+...

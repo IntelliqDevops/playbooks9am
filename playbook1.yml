@@ -1,6 +1,7 @@
 ---
 - name: Create user on all the servers
-  hosts: servers
+  hosts: all
+  serial: 1
   tasks:
     - name: User creation
       user:
@@ -10,5 +11,6 @@
         home: /tmp/Ravi
         shell: /bin/bash
         comment: "a regular user"
+
 
 ...
