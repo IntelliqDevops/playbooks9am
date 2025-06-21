@@ -1,0 +1,5 @@
+---
+- name: Configure apache on all servers usign roles
+  hosts: all
+  roles:
+    - apache2

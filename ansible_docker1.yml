@@ -1,0 +1,9 @@
+---
+- name: Install docker on all the servers
+  hosts: all
+  tasks:
+    - name: Download the docker shell script and run it
+      shell: "{{item}}"
+      with_items:
+        - curl -fsSL https://get.docker.com -o install-docker.sh
+        - sudo sh install-docker.sh

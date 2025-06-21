@@ -1,0 +1,11 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for tomcat
+- name: Check tomcat response
+  uri:
+    url: "{{item.a}}"
+    status_code: "{{item.b}}"
+  with_items:
+    - {a: "{{server1}}",b: "{{status1}}"}
+    - {a: "{{server2}}",b: "{{status1}}"}
+
